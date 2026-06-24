@@ -119,10 +119,17 @@ class Collection:
             else:    
                 album_count = album_count + 1
         
-        print(f"Song count: {song_count} | Album count: {album_count}")        
+        print(f"Song count: {song_count} | Album count: {album_count}")     
+        
+    def sort_by_year(self):
+        ascending = sorted(self.media, key=lambda x: x.year)
+        for entry in ascending:
+            entry.display()
+               
+           
                         
 def menu():
-    
+     
     #if file already exists, open file and convert saved dicts into song/album objects, appending them to empty collections list then convert list to collections obj
     try:
         with open("collection.json", "r") as file:
@@ -150,7 +157,8 @@ def menu():
         print("4. Search by artist")
         print("5. Remove an item")
         print("6. View collection stats")
-        print("7. Save and quit")
+        print("7. Sort by year")
+        print("8. Save and quit")
         
         while True:
             option = input("Enter option from menu: ")
@@ -180,6 +188,9 @@ def menu():
             collection_list.count_by_type()
             
         if option == "7":
+            collection_list.sort_by_year()    
+            
+        if option == "8":
             my_collection = []
             with open("collection.json", "w") as file:
                 for entry in collection_list.media:
